@@ -1,0 +1,5 @@
+Product Name;Price;Description
+Printed T-shirt;29.99;Classic white t-shirt with a printed design on the front
+Sweatpants;49.99;Black sweatpants made from a soft material
+Evening Dress;99.99;Elegant evening dress with a deep neckline
+Sport Shoes;79.99;Lightweight sport shoes perfect for running.

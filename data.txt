@@ -1,0 +1,6 @@
+KGHM, 100
+PKN Orlen, 90
+PKO BP, 42
+Tauron, 30
+Orange, 25
+PGE, 20
