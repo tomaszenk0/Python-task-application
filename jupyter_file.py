@@ -2,7 +2,6 @@ import datetime
 import nbformat
 import json
 import random
-import re
 nb=nbformat.read("Zadania.ipynb" , as_version=4)
 content=""
 current_date="01.01.2026"

@@ -1,4 +1,5 @@
-import re
-string = '!@#$%^&45wc'
-result = re.findall(r'[a-zA-Z0-9]', string)
-print(result)
+import numpy as np
+np.random.seed(42)
+A = np.random.randint(10, size=(100, 30))
+np.set_printoptions(edgeitems=10)
+print(A)
