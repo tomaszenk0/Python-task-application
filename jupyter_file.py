@@ -2,19 +2,37 @@ import datetime
 import nbformat
 import json
 import random
+
 nb=nbformat.read("Zadania.ipynb" , as_version=4)
 content=""
-current_date="01.01.2026"
-current_date=datetime.datetime.strptime(current_date, ("%d.%m.%Y"))
+
+
+total_tasks=sum(1 for cell in nb.cells if cell.cell_type=='markdown')
+
+start_date=datetime.datetime(2026, 1, 1)
+end_date=datetime.datetime(2026, 12,31)
+
+total_days=(end_date-start_date).days
+avg_step=total_days/max(total_tasks,1)
+
+min_step=0
+max_step=max(1, int(avg_step*1.8))
+
+current_date=start_date
+
 task_number=-1
 result=[]
 for cell in nb.cells:
     if cell.cell_type=="markdown":
-        date_str = current_date.strftime("%Y-%m-%d")
         task_number+=1
         content=cell.source.replace("\n", " ")
-        delta_days = random.randint(0, 2)
+
+        date_str = current_date.strftime("%Y-%m-%d")
+        delta_days = random.randint(min_step, max_step)
         current_date += datetime.timedelta(days=delta_days)
+        if current_date>end_date:
+            current_date=end_date
+
         task_name = f"Zadanie {task_number}"
 
     else:
@@ -24,6 +42,8 @@ for cell in nb.cells:
 
 with open("tasks.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
+
+
 
 
 
