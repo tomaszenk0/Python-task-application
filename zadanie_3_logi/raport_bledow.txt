@@ -1,0 +1,42 @@
+app.log|3|ERROR: Connection timeout
+db.log|2|ERROR: Query failed on line 42
+db.log|3|ERROR: Disk full
+raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|3|db.log|3|ERROR: Disk full
+app.log|3|ERROR: Connection timeout
+db.log|2|ERROR: Query failed on line 42
+db.log|3|ERROR: Disk full
+raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|4|raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|5|raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|6|raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|7|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|8|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|9|db.log|3|ERROR: Disk full
+app.log|3|ERROR: Connection timeout
+db.log|2|ERROR: Query failed on line 42
+db.log|3|ERROR: Disk full
+raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|4|raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|5|raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|6|raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|7|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|8|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|9|db.log|3|ERROR: Disk full
+raport_bledow.txt|10|raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|11|raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|12|raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|13|raport_bledow.txt|4|raport_bledow.txt|1|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|14|raport_bledow.txt|5|raport_bledow.txt|2|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|15|raport_bledow.txt|6|raport_bledow.txt|3|db.log|3|ERROR: Disk full
+raport_bledow.txt|16|raport_bledow.txt|7|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|17|raport_bledow.txt|8|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|18|raport_bledow.txt|9|db.log|3|ERROR: Disk full
+raport_bledow.txt|19|app.log|3|ERROR: Connection timeout
+raport_bledow.txt|20|db.log|2|ERROR: Query failed on line 42
+raport_bledow.txt|21|db.log|3|ERROR: Disk full
