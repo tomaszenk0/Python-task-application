@@ -11,7 +11,6 @@ import pandas as pd
 
 from src.parser import count_method_calls
 
-
 DEFAULT_DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "tasks.json"
 
 
@@ -21,7 +20,7 @@ def load_tasks(data_path: str | Path = DEFAULT_DATA_PATH) -> tuple[dict[str, obj
     with Path(data_path).open(encoding="utf-8") as file:
         raw_tasks = json.load(file)
     if not isinstance(raw_tasks, list):
-        raise ValueError("The task data file must contain a JSON list.")
+        raise TypeError("The task data file must contain a JSON list.")
     return tuple(task for task in raw_tasks if isinstance(task, dict))
 
 

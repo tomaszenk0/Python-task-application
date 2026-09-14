@@ -1,7 +1,13 @@
 """Unit tests for Streamlit-independent application logic."""
 
 from src.data_loader import count_unique_task_days
-from src.parser import count_code_lines, count_technology_usage, count_total_code_lines, detect_technologies, extract_method_calls
+from src.parser import (
+    count_code_lines,
+    count_technology_usage,
+    count_total_code_lines,
+    detect_technologies,
+    extract_method_calls,
+)
 
 
 def test_count_code_lines_ignores_blank_lines() -> None:

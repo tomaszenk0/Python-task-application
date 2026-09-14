@@ -1,9 +1,10 @@
-import streamlit as st
 import json
 import re
+from collections import Counter
+
 import pandas as pd
 import plotly.express as px
-from collections import Counter
+import streamlit as st
 
 # 1. KONFIGURACJA STRONY
 st.set_page_config(

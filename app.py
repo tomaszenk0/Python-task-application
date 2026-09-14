@@ -5,10 +5,18 @@ from __future__ import annotations
 import streamlit as st
 
 from src.components import show_progress, task_browser
-from src.data_loader import build_date_summary, build_method_frames, count_unique_task_days, load_tasks
+from src.data_loader import (
+    build_date_summary,
+    build_method_frames,
+    count_unique_task_days,
+    load_tasks,
+)
 from src.parser import count_technology_usage, count_total_code_lines
-from src.visualizations import create_matplotlib_figure, create_plotly_figures, create_seaborn_figure
-
+from src.visualizations import (
+    create_matplotlib_figure,
+    create_plotly_figures,
+    create_seaborn_figure,
+)
 
 st.set_page_config(page_title="Nauka z Pythonem", page_icon="🐍", layout="wide")
 

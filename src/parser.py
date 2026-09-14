@@ -6,7 +6,6 @@ import re
 from collections import Counter
 from collections.abc import Iterable
 
-
 TECHNOLOGY_KEYWORDS: dict[str, tuple[str, ...]] = {
     "Pandas": ("pandas", "pd."),
     "NumPy": ("numpy", "np."),

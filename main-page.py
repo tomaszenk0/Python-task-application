@@ -1,13 +1,15 @@
-import streamlit as st
 import json
-import time
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import plotly.express as px
 import re
+import time
 from collections import Counter
+
+import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.express as px
 import seaborn as sns
+import streamlit as st
+from matplotlib import cm
+
 st.set_page_config(layout='wide')
 
 #Adding data from json to code
@@ -174,7 +176,7 @@ def labels():
         col_tech1, col_tech2 = st.columns(2)
 
         with col_tech1:
-            st.markdown("""
+            st.markdown(r"""
             * **Wykres Kolumnowy (Vertical Bar):** Służy do szybkiej identyfikacji liderów zestawienia (`Numpy` i `Pandas`). Zastosowano dynamiczny zakres osi $Y$ (+10%), rotację etykiet osi $X$ o $50^\circ$ oraz etykiety wartości nad słupkami (`bar_label`).
             * **Wykres Liniowy z Wypełnieniem (Area Chart):** Wykres liniowy ze znacznikami (`marker='o'`) i przezroczystym wypełnieniem (`fill_between`). Obrazuje profil rozkładu i spadek skali (efekt *scree plot*) między głównymi narzędziami a bibliotekami pomocniczymi.
             """)

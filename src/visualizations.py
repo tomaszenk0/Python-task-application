@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
 import seaborn as sns
+from matplotlib import cm
 from matplotlib.figure import Figure
 from plotly.graph_objects import Figure as PlotlyFigure
 

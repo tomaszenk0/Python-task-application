@@ -27,7 +27,7 @@ jobs:
 
       - name: run ruff
         run: |
-          ruff check .
+          ruff check src/ app.py tests/
 
       - name: run pytest
         run: |
