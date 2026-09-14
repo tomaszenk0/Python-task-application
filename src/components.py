@@ -53,7 +53,7 @@ def task_browser(tasks: Sequence[dict[str, object]]) -> None:
     technologies = " • ".join(f"`{item}`" for item in detect_technologies(code))
     with st.container(border=True):
         left, right = st.columns([2, 1])
-        left.markdown(f"### Task Prompt {st.session_state.task_index + 1} z {len(filtered)}")
+        left.markdown(f"### Task Prompt {st.session_state.task_index + 1} of {len(filtered)}")
         right.caption(f"🛠Technology {technologies} | Lines: `{count_code_lines(code)}`")
         st.divider()
         st.markdown(f"**Solve:**\n\n{task.get('content', '')}")
