@@ -85,5 +85,6 @@ def create_seaborn_figure(date_summary: pd.DataFrame) -> Figure:
     axes[1, 1].set_title("4. Heat Map", color="white")
     for axis in axes.flat:
         axis.tick_params(axis="x", rotation=40)
+        axis.set(xlabel=None, ylabel=None)
     fig.tight_layout()
     return fig
