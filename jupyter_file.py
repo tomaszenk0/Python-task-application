@@ -1,8 +1,8 @@
 import datetime
-import nbformat
 import json
 import random
-import numpy as np
+
+import nbformat
 
 files=["Zadania.ipynb", 'Automotive_TASK.ipynb']
 notebooks=[]

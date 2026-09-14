@@ -1,13 +1,15 @@
-import streamlit as st
 import json
-import time
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import plotly.express as px
 import re
+import time
 from collections import Counter
+
+import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.express as px
 import seaborn as sns
+import streamlit as st
+from matplotlib import cm
+
 st.set_page_config(layout='wide')
 
 #Adding data from json to code
@@ -54,7 +56,7 @@ def libraries(show=True):
         counts['os'],
         counts['pathlib'])
 
-
+#Looking for libraries in python
 def get_task_technologies(solve_code):
     code_lower = solve_code.lower()
     techs = []
@@ -97,6 +99,7 @@ def days():
     result=len(unique_dates)
     pasek(result, "Ilość dni")
 
+#data with amount tasks in every months and days of week
 @st.cache_data
 def dict_days():
     days=load_data()
@@ -113,38 +116,32 @@ def dict_days():
 
 df_days=dict_days()
 
-
 def labels():
     st.title("Wykresy z użyciem Matplotlib")
     p, n, s, re, os, path = libraries(show=False)
     category = ['Pandas', 'Numpy', 'SCLEARN', 'RE', 'OS', 'PATHLIB']
     values = [p, n, s, re, os, path]
 
-    # Paleta dostosowana do ciemnego tła
     colors = cm.cool([0.5 + 0.4 * (i / len(category)) for i in range(len(category))])
 
-    fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(13, 15))
-    fig.patch.set_facecolor('#0e1117')  # Tło dopasowane do Streamlit Dark
-
+    fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(9, 9))
+    fig.patch.set_facecolor('#0e1117')
     for a in ax.flat:
-        a.set_facecolor('#161b22')  # Tło samych osi
-        a.tick_params(colors='white')  # Kolor tekstu przy osiach
+        a.set_facecolor('#161b22')
+        a.tick_params(colors='white')
         a.xaxis.label.set_color('white')
         a.yaxis.label.set_color('white')
 
-    # Wykres 1
     bars = ax[0, 0].bar(category, values, width=0.7, color=colors, edgecolor='white')
     ax[0, 0].bar_label(bars, padding=4, weight='bold', color='white')
     ax[0, 0].tick_params(axis='x', rotation=50)
     ax[0, 0].set_ylim(0, max(values) * 1.1)
     ax[0, 0].set_title("Wykres pionowy", fontsize=12, pad=12, fontweight='bold', color='white')
 
-    # Wykres 2
     bars = ax[0, 1].barh(category, values, color=colors, edgecolor='white')
     ax[0, 1].bar_label(bars, label_type='center', weight='bold', fontsize=10, color='black')
     ax[0, 1].set_title("Wykres poziomy", fontsize=12, pad=12, fontweight='bold', color='white')
 
-    # Wykres 3
     ax[1, 0].plot(category, values, marker='o', linestyle='-', color='#00d2ff')
     ax[1, 0].fill_between(range(len(category)), values, color='#00d2ff', alpha=0.25)
     ax[1, 0].set_title("Wykres Liniowy", fontsize=12, pad=12, fontweight='bold', color='white')
@@ -152,7 +149,6 @@ def labels():
         ax[1, 0].text(x, y + 2, str(y), ha='left', va='bottom', weight='bold', color='white')
     ax[1, 0].grid(True, linestyle='--', alpha=0.3, color='gray')
 
-    # Wykres 4
     ax[1, 1].vlines(x=range(len(category)), ymin=0, ymax=values, color=colors, alpha=0.8, linewidth=2)
     ax[1, 1].scatter(range(len(category)), values, color=colors, s=120, zorder=3)
     ax[1, 1].set_xticks(range(len(category)))
@@ -170,19 +166,17 @@ def labels():
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.4, wspace=0.25)
-    st.pyplot(fig)
+    st.pyplot(fig,use_container_width=False)
     plt.close(fig)
 
-
-    # Profesjonalny, zwijany opis pod wykresem
-    with st.expander("🔍 Dowiedz się więcej: Techniczna analiza wykresów i interpretacja danych"):
+    with st.expander(" Dowiedz się więcej: Techniczna analiza wykresów i interpretacja danych"):
 
         st.markdown("### 1. Przegląd Typów Wykresów (Matplotlib)")
 
         col_tech1, col_tech2 = st.columns(2)
 
         with col_tech1:
-            st.markdown("""
+            st.markdown(r"""
             * **Wykres Kolumnowy (Vertical Bar):** Służy do szybkiej identyfikacji liderów zestawienia (`Numpy` i `Pandas`). Zastosowano dynamiczny zakres osi $Y$ (+10%), rotację etykiet osi $X$ o $50^\circ$ oraz etykiety wartości nad słupkami (`bar_label`).
             * **Wykres Liniowy z Wypełnieniem (Area Chart):** Wykres liniowy ze znacznikami (`marker='o'`) i przezroczystym wypełnieniem (`fill_between`). Obrazuje profil rozkładu i spadek skali (efekt *scree plot*) między głównymi narzędziami a bibliotekami pomocniczymi.
             """)
@@ -200,13 +194,13 @@ def labels():
 
         with col_data1:
             st.markdown("""
-            **📊 Trzon technologiczny:**
+            ** Trzon technologiczny:**
             Zdecydowaną większość stanowią zadania z **Numpy** (**157**) oraz **Pandas** (**154**). Różnica tylko 3 zadań wskazuje na równoległy rozwój w zakresie algebry liniowej oraz analizy danych tabelarycznych. **Scikit-Learn** (**32**) stanowi krok w stronę modelowania predykcyjnego.
             """)
 
         with col_data2:
             st.markdown("""
-            **🔧 Automatyzacja i Inżynieria Danych:**
+            ** Automatyzacja i Inżynieria Danych:**
             Dopełnieniem umiejętności są zadania z wyrażeń regularnych (**RE** – **22**), struktury plików (**PATHLIB** – **17**) oraz operacji systemowych (**OS** – **16**). Wykresy dowodzą opanowania pełnego *pipeline'u* pracy analityka.
             """)
 
@@ -215,7 +209,7 @@ def methods():
     all_words=[]
     for item in tasks:
         solve=item.get('solve', '')
-        words=re.findall(r'\.[a-zA-Z_][a-zA-Z0-9_]*', solve)
+        words=re.findall(r'\.(?!com|googleapis|txt\b)[a-zA-Z_][a-zA-Z0-9_]*', solve)
         all_words.extend(words)
     counter=Counter(all_words)
     top_words=counter.most_common(11)
@@ -227,7 +221,6 @@ def methods():
         values.append(i)
     df_words = pd.DataFrame({'Category': category, "Values": values})
 
-    #Klatki animacji
     frames=[]
     steps=200
     for i in range(1, steps+1):
@@ -272,8 +265,7 @@ def labels_with_plotly(data):
         st.plotly_chart(fig3, use_container_width=True)
     with col4:
         st.plotly_chart(fig4, use_container_width=True)
-    # Zwijany opis pod wykresami Plotly
-    with st.expander("🔍 Dowiedz się więcej: Techniczna analiza wykresów Plotly i interpretacja metod Pythona"):
+    with st.expander(" Dowiedz się więcej: Techniczna analiza wykresów Plotly i interpretacja metod Pythona"):
         st.markdown("### 1. Przegląd Typów Wykresów i Zastosowanych Technik (Plotly Express)")
 
         col_tech1, col_tech2 = st.columns(2)
@@ -307,28 +299,28 @@ def labels_with_plotly(data):
 
         with col_data1:
             st.markdown("""
-            **🎲 Generowanie Danych i Praca z Tablicami (NumPy):**
+            ** Generowanie Danych i Praca z Tablicami (NumPy):**
             * **Metody dominujące:** Najczęściej pojawiającymi się wywołaniami są `.random` (**103 razy / 14%**) oraz `.array` (**88 razy / 11.9%**). 
             * **Wniosek:** Pokazuje to duży nacisk na samodzielne tworzenie danych testowych, symulacje oraz pracę na wielowymiarowych tablicach NumPy.
             """)
 
         with col_data2:
             st.markdown("""
-            **📊 Przetwarzanie i Operacje I/O (Pandas & Inne):**
+            ** Przetwarzanie i Operacje I/O (Pandas & Inne):**
             * **Operacje na ramkach danych:** Wysokie pozycje zajmują metody wczytywania danych i ich strukturyzacji: `.csv` (**85**), `.read_csv` (**74**), `.DataFrame` (**71**) oraz `.set_option` (**60**).
             * **Inne składniki:** Obecność `.append` (**59**), `.nan` (**53**), `.columns` (**49**) i `.seed` (**42**) dowodzi praktyk z czyszczenia danych (obsługa braków `NaN`) oraz powtarzalności eksperymentów (`seed`).
             """)
 
 
 def labels_with_seaborn():
-    st.title("Wykresy z użyciem seaborn")
 
+    st.title("Wykresy z użyciem Seaborn")
     days_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     month_order = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December']
 
-    fig, axes = plt.subplots(2, 2, figsize=(16, 10))
-    fig.patch.set_facecolor('#0e1117')  # Ciemne tło całego okna
+    fig, axes = plt.subplots(2, 2, figsize=(14, 11))
+    fig.patch.set_facecolor('#0e1117')
 
     for ax in axes.flat:
         ax.set_facecolor('#161b22')
@@ -359,16 +351,17 @@ def labels_with_seaborn():
     pivot_df = df_days.pivot_table(index="day_of_week", columns='Month', values='Amount', aggfunc='sum').reindex(
         index=days_order, columns=month_order).fillna(0)
 
-    # Heatmapa w ciemnym motywie
     sns.heatmap(pivot_df, cmap="YlGnBu", annot=True, fmt=".0f", cbar=False, ax=axes[1, 1], annot_kws={"color": "white"})
     axes[1, 1].set_title("4. Heat Map", color='white')
 
     plt.tight_layout()
     plt.subplots_adjust(hspace=0.4)
-    st.pyplot(fig)
+    col_left, col_center, col_right=st.columns([1,2,1])
+    with col_center:
+        st.pyplot(fig, use_container_width=False)
+
     plt.close(fig)
-    # Zwijany opis pod wykresami Seaborn
-    with st.expander("🔍 Dowiedz się więcej: Techniczna analiza wykresów Seaborn i interpretacja aktywności"):
+    with st.expander(" Dowiedz się więcej: Techniczna analiza wykresów Seaborn i interpretacja aktywności"):
         st.markdown("### 1. Przegląd Typów Wykresów i Zastosowanych Technik (Seaborn)")
 
         col_tech1, col_tech2 = st.columns(2)
@@ -402,14 +395,14 @@ def labels_with_seaborn():
 
         with col_data1:
             st.markdown("""
-            **📅 Sezonowość i Miesięczne Szczyty Aktywności:**
+            ** Sezonowość i Miesięczne Szczyty Aktywności:**
             * **Liderzy:** Najwyższą aktywność odnotowano w **sierpniu** (ponad 80 zadań), **grudniu** oraz **listopadzie**. 
             * **Spadki:** Wyraźne dołki widoczne są w **kwietniu** (najmniej zadań) oraz **lutym**, co wskazuje na okresowe przerwy lub intensywniejszą naukę w trybie projektowym/obozowym.
             """)
 
         with col_data2:
             st.markdown("""
-            **📆 Rytm Tygodniowy i Rekordy:**
+            ** Rytm Tygodniowy i Rekordy:**
             * **Stały nawyk:** Sumaryczna liczba zadań w dni tygodnia jest bardzo wyrównana (ok. 80–90 zadań dziennie), z lekką przewagą weekendów (**sobota i niedziela**).
             * **Ekstremum:** Według Heatmapy absolutny rekord jednorazowego natężenia pracy przypada na **niedzielę w sierpniu (20 zadań)** oraz **piątek w sierpniu (16 zadań)**.
             """)
@@ -418,10 +411,8 @@ def labels_with_seaborn():
 st.title('Nauka z Pythonem')
 st.markdown("""
 Witaj na stronie, która jest zapisem mojej praktycznej nauki Pythona! Umieściłem tu zestawienie 
-wszystkich zadań i projektów, które do tej pory przerobiłem.
+wszystkich zadań, które do tej pory przerobiłem.
 
-Zamiast po prostu wrzucić pliki do folderu, postanowiłem podejść do sprawy jak na programistę przystało — 
-**zbudować z nich interaktywny pulpit nawigacyjny**.
 
 ---
 
@@ -441,17 +432,17 @@ Cały ten projekt to nie tylko rozwiązane zadania, ale też mały ekosystem kod
 2. **Automatyczna konwersja:** Oryginalnie pracowałem w środowisku **Jupyter Notebook**. Aby sprawnie przenieść wszystko na stronę, napisałem skrypt, który wyciągnął treści i rozwiązania z notebooków `.ipynb` i przekształcił je w czysty format `.json`.
 3. **Symulacja danych w czasie:** Ponieważ podczas nauki nie śledziłem dokładnie czasu wykonania każdego zadania, dodałem do struktur JSON pole z datą i wzbogaciłem je o parametry losowe. Dzięki temu mogłem zbudować dla Was realistyczne statystyki czasowe i wizualizacje trendów!
 
-### A teraz przejdźmy do statystyk
+
 """)
 
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    pasek(amount, "Ile zadań zrobiłem")
-with col2:
-    days()
-with col3:
-    line_code()
+#col1, col2, col3 = st.columns(3)
+#with col1:
+#    pasek(amount, "Ile zadań zrobiłem")
+#with col2:
+#    days()
+#with col3:
+#    line_code()
 
 
 
@@ -459,14 +450,12 @@ with col3:
 def przegladarka_zadan():
     st.markdown("##  Przeglądarka Zadań")
 
-    # --- 1. PASEK KONTROLNY (FILTR I WYSZUKIWARKA W JEDNYM RZĘDZIE) ---
     col_tech, col_search = st.columns([1, 2])
 
     with col_tech:
         technologies = ['All', 'Pandas', 'NumPy', 'Scikit-Learn', 'Regex', 'OS', 'Pathlib', 'Pure Python']
         chose_tech = st.selectbox("Technologia:", options=technologies, key='filter_tech')
 
-    # Filtrowanie po technologii
     if chose_tech != 'All':
         filtered_tasks = [t for t in tasks if chose_tech in get_task_technologies(t.get("solve", ""))]
     else:
@@ -475,7 +464,6 @@ def przegladarka_zadan():
     with col_search:
         search_query = st.text_input(" Szukaj w treści lub kodzie:", "", key="task_search")
 
-    # Filtrowanie po wyszukiwanym frazie
     if search_query:
         filtered_tasks = [
             t for t in filtered_tasks
@@ -489,13 +477,11 @@ def przegladarka_zadan():
         st.warning("Nie znaleziono zadań spełniających kryteria.")
         return
 
-    # Bezpieczeństwo indeksu
     if 'indeks' not in st.session_state:
         st.session_state.indeks = 0
     if st.session_state.indeks >= how_filtered:
         st.session_state.indeks = 0
 
-    # Nawigacja
     def previous():
         if st.session_state.indeks > 0:
             st.session_state.indeks -= 1
@@ -504,14 +490,12 @@ def przegladarka_zadan():
         if st.session_state.indeks < how_filtered - 1:
             st.session_state.indeks += 1
 
-    # --- 2. PASEK NAWIGACJI PUSZCZONY W JEDNEJ LINII ---
     nav_col1, nav_col2, nav_col3 = st.columns([1, 4, 1])
 
     with nav_col1:
         st.button('⬅️', on_click=previous, disabled=(st.session_state.indeks == 0), use_container_width=True)
 
     with nav_col2:
-        # Pasek postępu slider ze spójnym wyświetlaniem aktualnego indeksu
         st.slider(
             'Wybierz zadanie',
             min_value=1,
@@ -526,30 +510,24 @@ def przegladarka_zadan():
         st.button('➡️', on_click=next, disabled=(st.session_state.indeks == how_filtered - 1),
                   use_container_width=True)
 
-    # --- 3. KARTA ZADANIA (GŁÓWNY POJEMNIK) ---
     actual_task = filtered_tasks[st.session_state.indeks]
     solve_code = actual_task.get("solve", "")
     tech_list = get_task_technologies(solve_code)
     lines_count = count_code_lines(solve_code)
     tech_str = " • ".join([f"`{t}`" for t in tech_list])
 
-    # Pojemnik z ramką (nowość w Streamlit)
     with st.container(border=True):
-        # Nagłówek karty z numerem i metadanymi
         meta_col1, meta_col2 = st.columns([2, 1])
         with meta_col1:
             st.markdown(f"### Zadanie {st.session_state.indeks + 1} z {how_filtered}")
         with meta_col2:
-            st.caption(f"🛠️ {tech_str} | 📏 Lines: `{lines_count}`")
+            st.caption(f"🛠 {tech_str} |  Lines: `{lines_count}`")
 
         st.markdown("---")
 
-        # Treść zadania w czytelnym panelu informacyjnym
         st.markdown(f"**Treść:**\n\n{actual_task['content']}")
 
         st.markdown("<br>", unsafe_allow_html=True)
-
-        # Kod rozwiązania
         st.markdown("#####  Kod rozwiązania:")
         st.code(solve_code, language='python', line_numbers=True)
 
@@ -557,7 +535,8 @@ def przegladarka_zadan():
 how_words=methods()[0]
 how_words_animated=methods()[1]
 przegladarka_zadan()
-
+st.title("A teraz przejdźmy do statystyk")
+st.markdown("Stworzyłem zestaw wykresów wykorzystując trzy biblioteki do wizualizacji danych. Każda biblioteka obejmuje inny zbiór danych i przedstawia różne typy wykresów. Poniżej jest także opis poszczególnych wykresów.")
 tab1,tab2,tab3=st.tabs([
     "Wykresy Matplotlib",
     "Wykresy Plotly",
