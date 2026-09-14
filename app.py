@@ -18,7 +18,7 @@ from src.visualizations import (
     create_seaborn_figure,
 )
 
-st.set_page_config(page_title="Nauka z Pythonem", page_icon="🐍", layout="wide")
+st.set_page_config(page_title="Learning Python", page_icon="🐍", layout="wide")
 
 
 @st.cache_data
@@ -31,22 +31,22 @@ def load_dashboard_data() -> tuple[tuple[dict[str, object], ...], object, object
 tasks, date_summary, (methods, method_frames) = load_dashboard_data()
 technology_counts = count_technology_usage(tasks)
 
-st.title("Nauka z Pythonem")
-st.markdown("""Witaj na stronie, która jest zapisem mojej praktycznej nauki Pythona! Umieściłem tu zestawienie wszystkich zadań, które do tej pory przerobiłem.
+st.title("Learning Python")
+st.markdown("""Welcome to a dashboard documenting my practical Python learning journey. It contains an overview of all the exercises I have completed so far.
 
 ---
 
-### Co tutaj znajdziesz?
+### What will you find here?
 
-* **Przekrój umiejętności:** od podstaw języka, przez analizę danych (**NumPy**, **Pandas**), aż po **Scikit-Learn**.
-* **Pełny kontekst:** każde zadanie zawiera oryginalną treść oraz rozwiązanie.
-* **Statystyki i postępy:** wykresy pokazują zakres nauki i aktywność w czasie.
+* **A cross-section of skills:** from language fundamentals and data analysis (**NumPy**, **Pandas**) to **Scikit-Learn**.
+* **Full context:** every task includes its original description and solution.
+* **Statistics and progress:** charts show the scope of learning and activity over time.
 
 ---
 
-### Jak to powstało?
 
-Projekt korzysta z zadań z kursów Pythona ale projekt strony, rozwiązania zadań, ich analiza i wizualizacja są w pełni autorskie""")
+
+The project uses exercises from Python courses, while the website design, task solutions, their analysis, and visualisations are entirely my own.""")
 
 task_count = len(tasks)
 unique_day_count = count_unique_task_days(tasks)
@@ -54,57 +54,57 @@ total_code_lines = count_total_code_lines(tasks)
 
 task_column, day_column, line_column = st.columns(3)
 with task_column:
-    show_progress(task_count, "Ile zadań zrobiłem")
+    show_progress(task_count, "Completed tasks")
 with day_column:
-    show_progress(unique_day_count, "Ilość dni")
+    show_progress(unique_day_count, "Active days")
 with line_column:
-    show_progress(total_code_lines, "Ilość linijek kodu")
+    show_progress(total_code_lines, "Lines of code")
 
 task_browser(tasks)
-st.title("A teraz przejdźmy do statystyk")
-st.markdown("Stworzyłem zestaw wykresów wykorzystujących trzy biblioteki do wizualizacji danych.")
-matplotlib_tab, plotly_tab, seaborn_tab = st.tabs(["Wykresy Matplotlib", "Wykresy Plotly", "Wykresy Seaborn"])
+st.title("Now, let's move on to the statistics")
+st.markdown("I created a set of charts using three data-visualisation libraries.")
+matplotlib_tab, plotly_tab, seaborn_tab = st.tabs(["Matplotlib charts", "Plotly charts", "Seaborn charts"])
 
 with matplotlib_tab:
-    st.title("Wykresy z użyciem Matplotlib")
+    st.title("Charts created with Matplotlib")
     st.pyplot(create_matplotlib_figure(technology_counts), use_container_width=False)
-    with st.expander("Dowiedz się więcej: interpretacja wykresów"):
-        st.markdown("### 1. Przegląd Typów Wykresów (Matplotlib)")
+    with st.expander("Learn more: chart interpretation"):
+        st.markdown("### 1. Chart type overview (Matplotlib)")
 
         col_tech1, col_tech2 = st.columns(2)
 
         with col_tech1:
             st.markdown(r"""
-                    * **Wykres Kolumnowy (Vertical Bar):** Służy do szybkiej identyfikacji liderów zestawienia (`Numpy` i `Pandas`). Zastosowano dynamiczny zakres osi $Y$ (+10%), rotację etykiet osi $X$ o $50^\circ$ oraz etykiety wartości nad słupkami (`bar_label`).
-                    * **Wykres Liniowy z Wypełnieniem (Area Chart):** Wykres liniowy ze znacznikami (`marker='o'`) i przezroczystym wypełnieniem (`fill_between`). Obrazuje profil rozkładu i spadek skali (efekt *scree plot*) między głównymi narzędziami a bibliotekami pomocniczymi.
+                    * **Vertical Bar Chart:** Used to quickly identify the leading technologies (`NumPy` and `Pandas`). It uses a dynamic $Y$-axis range (+10%), $50^\circ$ rotation of $X$-axis labels, and value labels above the bars (`bar_label`).
+                    * **Area Chart:** A line chart with markers (`marker='o'`) and transparent filling (`fill_between`). It illustrates the distribution profile and the decline in scale (the *scree plot* effect) between the main tools and supporting libraries.
                     """)
 
         with col_tech2:
             st.markdown("""
-                    * **Wykres Poziomy (Horizontal Bar):** Ułatwia naturalne czytanie nazw technologii od góry do dołu bez obracania głowy, z etykietami wartości umieszczonymi centralnie wewnątrz pasków.
-                    * **Wykres Lizakowy (Lollipop Chart):** Hybryda wykresu punktowego (`scatter`) i linii bazowych (`vlines`). Minimalistyczny odpowiednik wykresu słupkowego, redukujący szum wizualny (*ink-to-data ratio*).
+                    * **Horizontal Bar Chart:** Makes technology names naturally readable from top to bottom without rotating your head, with value labels placed centrally inside the bars.
+                    * **Lollipop Chart:** A hybrid of a scatter chart (`scatter`) and baseline lines (`vlines`). It is a minimalist alternative to a bar chart that reduces visual noise (*ink-to-data ratio*).
                     """)
 
         st.markdown("---")
-        st.markdown("### 2. Merytoryczna Interpretacja Danych")
+        st.markdown("### 2. Data interpretation")
 
         col_data1, col_data2 = st.columns(2)
 
         with col_data1:
             st.markdown("""
-                    ** Trzon technologiczny:**
-                    Zdecydowaną większość stanowią zadania z **Numpy** (**157**) oraz **Pandas** (**154**). Różnica tylko 3 zadań wskazuje na równoległy rozwój w zakresie algebry liniowej oraz analizy danych tabelarycznych. **Scikit-Learn** (**32**) stanowi krok w stronę modelowania predykcyjnego.
+                    ** Core technologies:**
+                    The vast majority of tasks use **NumPy** (**157**) and **Pandas** (**154**). A difference of only three tasks indicates parallel development in linear algebra and tabular data analysis. **Scikit-Learn** (**32**) represents a step towards predictive modelling.
                     """)
 
         with col_data2:
             st.markdown("""
-                    ** Automatyzacja i Inżynieria Danych:**
-                    Dopełnieniem umiejętności są zadania z wyrażeń regularnych (**RE** – **22**), struktury plików (**PATHLIB** – **17**) oraz operacji systemowych (**OS** – **16**). Wykresy dowodzą opanowania pełnego *pipeline'u* pracy analityka.
+                    ** Automation and data engineering:**
+                    The skill set is complemented by exercises involving regular expressions (**RE** – **22**), file structures (**PATHLIB** – **17**), and system operations (**OS** – **16**). The charts demonstrate mastery of a complete analyst workflow *pipeline*.
                     """)
 
 
 with plotly_tab:
-    st.title("Wykresy z użyciem Plotly")
+    st.title("Charts created with Plotly")
     pie, treemap, donut, animated_bar = create_plotly_figures(methods, method_frames)
     left, right = st.columns(2)
     left.plotly_chart(pie, use_container_width=True)
@@ -112,99 +112,98 @@ with plotly_tab:
     left, right = st.columns(2)
     left.plotly_chart(donut, use_container_width=True)
     right.plotly_chart(animated_bar, use_container_width=True)
-    with st.expander("Dowiedz się więcej: interpretacja metod"):
-        st.markdown("### 1. Przegląd Typów Wykresów i Zastosowanych Technik (Plotly Express)")
+    with st.expander("Learn more: method interpretation"):
+        st.markdown("### 1. Chart types and applied techniques overview (Plotly Express)")
 
         col_tech1, col_tech2 = st.columns(2)
 
         with col_tech1:
             st.markdown("""
-                    * **Wykres Kołowy z Wyciągniętym Wycinkiem (`px.pie` z parametrem `pull`):** 
-                      * **Opis:** Pokazuje udział procentowy poszczególnych metod w całości zestawienia.
-                      * **Technika:** Zastosowano efektywne wyciągnięcie (odsuniecie) lidera rankingu (`.random` - 14%), aby natychmiast przyciągnąć wzrok odbiorcy.
+                    * **Pie Chart with a Pulled Slice (`px.pie` with the `pull` parameter):**
+                      * **Description:** Shows the percentage share of individual methods in the entire set.
+                      * **Technique:** The ranking leader (`.random` - 14%) is effectively pulled out to immediately draw the viewer's attention.
 
-                    * **Treemap - Mapa Drzewa (`px.treemap`):**
-                      * **Opis:** Prostokątna wizualizacja hierarchiczna, gdzie powierzchnia każdego kafelka jest proporcjonalna do częstości występowania danej metody.
-                      * **Zaleta:** Świetna alternatywa dla wykresów kołowych, umożliwiająca prostszą wizualną porównywalność powierzchni (np. łatwe dostrzeżenie przewagi `.random` i `.array` nad resztą).
+                    * **Treemap (`px.treemap`):**
+                      * **Description:** A rectangular hierarchical visualisation where each tile's area is proportional to the frequency of a given method.
+                      * **Benefit:** A strong alternative to pie charts that makes area comparisons easier (for example, it is easy to see the advantage of `.random` and `.array` over the rest).
                     """)
 
         with col_tech2:
             st.markdown("""
-                    * **Wykres Pierścieniowy (`px.pie` z parametrem `hole=0.5`):**
-                      * **Opis:** Zmodyfikowany wykres kołowy z wyciętym środkiem (Donut Chart).
-                      * **Zaleta:** Poprawia czytelność interfejsu (tzw. *data-to-ink ratio*), dając nowocześniejszy wygląd przy zachowaniu identycznego podziału procentowego.
+                    * **Donut Chart (`px.pie` with the `hole=0.5` parameter):**
+                      * **Description:** A modified pie chart with a cut-out centre.
+                      * **Benefit:** Improves interface readability (the *data-to-ink ratio*) and gives a more modern look while preserving the same percentage breakdown.
 
-                    * **Animowany Wykres Słupkowy (`px.bar` z `animation_frame`):**
-                      * **Opis:** Interaktywny słupkowy wykres wartości bezwzględnych poszczególnych słów kluczowych.
-                      * **Technika:** Wykorzystuje klatki animacji w Plotly (`animation_frame`), dodając element dynamicznego wzrostu słupków i płynnej interakcji użytkownika z suwakiem.
+                    * **Animated Bar Chart (`px.bar` with `animation_frame`):**
+                      * **Description:** An interactive bar chart of absolute values for individual keywords.
+                      * **Technique:** Uses Plotly animation frames (`animation_frame`), adding dynamically growing bars and smooth user interaction with the slider.
                     """)
 
         st.markdown("---")
-        st.markdown("### 2. Merytoryczna Analiza Użycia Metod i Wywołań w Kodzie")
+        st.markdown("### 2. Analysis of method usage and code calls")
 
         col_data1, col_data2 = st.columns(2)
 
         with col_data1:
             st.markdown("""
-                    ** Generowanie Danych i Praca z Tablicami (NumPy):**
-                    * **Metody dominujące:** Najczęściej pojawiającymi się wywołaniami są `.random` (**103 razy / 14%**) oraz `.array` (**88 razy / 11.9%**). 
-                    * **Wniosek:** Pokazuje to duży nacisk na samodzielne tworzenie danych testowych, symulacje oraz pracę na wielowymiarowych tablicach NumPy.
+                    ** Data generation and array work (NumPy):**
+                    * **Dominant methods:** The most frequent calls are `.random` (**103 times / 14%**) and `.array` (**88 times / 11.9%**).
+                    * **Conclusion:** This shows a strong focus on independently creating test data, simulations, and working with multidimensional NumPy arrays.
                     """)
 
         with col_data2:
             st.markdown("""
-                    ** Przetwarzanie i Operacje I/O (Pandas & Inne):**
-                    * **Operacje na ramkach danych:** Wysokie pozycje zajmują metody wczytywania danych i ich strukturyzacji: `.csv` (**85**), `.read_csv` (**74**), `.DataFrame` (**71**) oraz `.set_option` (**60**).
-                    * **Inne składniki:** Obecność `.append` (**59**), `.nan` (**53**), `.columns` (**49**) i `.seed` (**42**) dowodzi praktyk z czyszczenia danych (obsługa braków `NaN`) oraz powtarzalności eksperymentów (`seed`).
+                    ** Processing and I/O operations (Pandas & others):**
+                    * **DataFrame operations:** Data-loading and structuring methods rank highly: `.csv` (**85**), `.read_csv` (**74**), `.DataFrame` (**71**), and `.set_option` (**60**).
+                    * **Other elements:** The presence of `.append` (**59**), `.nan` (**53**), `.columns` (**49**), and `.seed` (**42**) demonstrates data-cleaning practices (handling missing `NaN` values) and experiment reproducibility (`seed`).
                     """)
 
 with seaborn_tab:
-    st.title("Wykresy z użyciem Seaborn")
+    st.title("Charts created with Seaborn")
     left, center, right = st.columns([1, 2, 1])
     center.pyplot(create_seaborn_figure(date_summary), use_container_width=False)
-    with st.expander("Dowiedz się więcej: interpretacja aktywności"):
-        st.markdown("### 1. Przegląd Typów Wykresów i Zastosowanych Technik (Seaborn)")
+    with st.expander("Learn more: activity interpretation"):
+        st.markdown("### 1. Chart types and applied techniques overview (Seaborn)")
 
         col_tech1, col_tech2 = st.columns(2)
 
         with col_tech1:
             st.markdown("""
-                            * **Wykres Słupkowy Miesięczny (`sns.barplot` / `countplot` z paletą `Blues_d`):** 
-                              * **Opis:** Rozkład łącznej liczby rozwiązanych zadań w podziale na 12 miesięcy.
-                              * **Technika:** Zastosowanie sekwencyjnego gradientu kolorów podkreśla chronologiczny upływ czasu oraz intensywność pracy.
+                            * **Monthly Bar Chart (`sns.barplot` / `countplot` with the `Blues_d` palette):** 
+                              * **Description:** Distribution of the total number of completed tasks across all 12 months.
+                              * **Technique:** A sequential color gradient emphasizes the chronological passage of time and work intensity.
 
-                            * **Wykres Słupkowy Dni Tygodnia (`sns.barplot` z paletą `Greens_d`):**
-                              * **Opis:** Sumaryczne ujęcie aktywności w poszczególne dni tygodnia (od poniedziałku do niedzieli).
-                              * **Zaleta:** Pozwala zweryfikować, czy nauka odbywała się w trybie ciągłym, czy miała charakter zrywny.
+                            * **Day of the Week Bar Chart (`sns.barplot` with the `Greens_d` palette):**
+                              * **Description:** Aggregate summary of activity across individual days of the week (Monday through Sunday).
+                              * **Benefit:** Helps verify whether learning was consistent or took place in short, sporadic bursts.
                             """)
 
         with col_tech2:
             st.markdown("""
-                            * **Wykres Punktowy Rozproszony (`sns.stripplot` / `scatterplot`):**
-                              * **Opis:** Przedstawia pojedyncze sesje naukowe przypisane do dni tygodnia, gdzie oś $Y$ określa liczbę zadań wykonanych podczas danej sesji.
-                              * **Technika:** Zastosowanie odrębnych kolorów dla każdego dnia tygodnia (kategoryzacja `hue`) pozwala dostrzec zagęszczenie i powtarzalność sesji o określonej wielkości.
+                            * **Scatter Plot / Strip Plot (`sns.stripplot` / `scatterplot`):**
+                              * **Description:** Displays individual study sessions mapped to days of the week, where the $Y$-axis indicates the number of tasks completed in a given session.
+                              * **Technique:** Using distinct colors for each day of the week (`hue` categorization) reveals the clustering and frequency of sessions of specific sizes.
 
-                            * **Mapa Czasowa / Heatmapa (`sns.heatmap` z `annot=True`):**
-                              * **Opis:** Dwuwymiarowa macierz łącząca dni tygodnia (oś $Y$) z miesiącami (oś $X$).
-                              * **Technika:** Włączenie adnotacji liczbowych (`annot=True`) oraz palety `viridis` / `YlGnBu` umożliwia natychmiastową lokalizację absolutnych rekordów dziennych (np. **20 zadań w niedzielę w sierpniu**).
+                            * **Time Matrix / Heatmap (`sns.heatmap` with `annot=True`):**
+                              * **Description:** A two-dimensional matrix combining days of the week ($Y$-axis) with months ($X$-axis).
+                              * **Technique:** Enabling numerical annotations (`annot=True`) alongside palettes like `viridis` / `YlGnBu` allows for the immediate identification of peak activity days (e.g., **20 tasks on a Sunday in August**).
                             """)
 
         st.markdown("---")
-        st.markdown("### 2. Merytoryczna Analiza Trendów Czasowych i Nawyków Pracy")
+        st.markdown("### 2. Analysis of time trends and study habits")
 
         col_data1, col_data2 = st.columns(2)
 
         with col_data1:
             st.markdown("""
-                            ** Sezonowość i Miesięczne Szczyty Aktywności:**
-                            * **Liderzy:** Najwyższą aktywność odnotowano w **sierpniu** (ponad 80 zadań), **grudniu** oraz **listopadzie**. 
-                            * **Spadki:** Wyraźne dołki widoczne są w **kwietniu** (najmniej zadań) oraz **lutym**, co wskazuje na okresowe przerwy lub intensywniejszą naukę w trybie projektowym/obozowym.
+                            ** Seasonality and monthly activity peaks:**
+                            * **Leaders:** The highest activity was recorded in **August** (over 80 tasks), **December**, and **November**.
+                            * **Dips:** Noticeable declines occurred in **April** (lowest task count) and **February**, indicating scheduled breaks or periods of project-focused intensive study.
                             """)
 
         with col_data2:
             st.markdown("""
-                            ** Rytm Tygodniowy i Rekordy:**
-                            * **Stały nawyk:** Sumaryczna liczba zadań w dni tygodnia jest bardzo wyrównana (ok. 80–90 zadań dziennie), z lekką przewagą weekendów (**sobota i niedziela**).
-                            * **Ekstremum:** Według Heatmapy absolutny rekord jednorazowego natężenia pracy przypada na **niedzielę w sierpniu (20 zadań)** oraz **piątek w sierpniu (16 zadań)**.
+                            ** Weekly rhythm and records:**
+                            * **Consistent habit:** The total volume of completed tasks across weekdays is fairly balanced (approx. 80–90 tasks per day), with a slight tilt toward weekends (**Saturday and Sunday**).
+                            * **Peak intensity:** According to the heatmap, the single-day work intensity records occurred on a **Sunday in August (20 tasks)** and a **Friday in August (16 tasks)**.
                             """)
-
