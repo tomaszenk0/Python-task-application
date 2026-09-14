@@ -16,7 +16,15 @@ An interactive Streamlit dashboard that turns a collection of Python learning ex
 - **Reusable, testable logic** — data processing and code-analysis functions are separated from the Streamlit interface and covered by unit tests.
 - **Continuous quality checks** — GitHub Actions runs Ruff linting and Pytest on pushes and pull requests.
 
-## 🛠 Tech Stack
+##  Data Pipeline & Extraction
+
+The exercises displayed in this dashboard were originally solved across multiple **Jupyter Notebooks** (`.ipynb`). To transform raw coursework into structured, production-ready data for the dashboard:
+
+1. **Custom Extraction Pipeline:** Developed a dedicated Python extraction script that parses notebook cells, isolating task instructions, markdown prompts, and executable code solutions.
+2. **Data Normalization:** The extracted data is cleaned, validated, and serialized into an optimized `tasks.json` structure, ensuring persistent formatting and metadata integrity.
+3. **Automated Analytics:** The Streamlit dashboard ingests this normalized JSON archive to dynamically evaluate technologies, compute lines of code, and feed data into the visualization engine.
+
+##  Tech Stack
 
 | Area | Tools |
 | --- | --- |
